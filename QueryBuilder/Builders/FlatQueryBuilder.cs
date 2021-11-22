@@ -1,3 +1,5 @@
+using CianParser.QueryBuilder.Models;
+
 namespace CianParser.QueryBuilder.Builders
 {
     public class FlatQueryBuilder
@@ -25,6 +27,83 @@ namespace CianParser.QueryBuilder.Builders
         private string CurrentPage { get; set; } = "&p=1";
 
         private string Uri { get; set; }
+        
+        public FlatQueryBuilder SetRegion(Region cityRegion)
+        {
+            Region = "&region=" + (int) cityRegion;
+            return this;
+        }
+        
+        public FlatQueryBuilder SortBy(string s)
+        {
+            Sort = "&sort=" + s;
+            
+            return this;
+        }
+
+        public FlatQueryBuilder SetRooms(params int[] rooms)
+        {
+            foreach (var room in rooms)
+            {
+                if (room > 0 && room < 6)
+                {
+                    Rooms = $"&room{room}=1";
+                }
+            }
+            return this;
+        }
+        
+        public FlatQueryBuilder IncludeStudios() // студии
+        {
+            Studios = "&room7=1";
+            return this;
+        }
+
+        public FlatQueryBuilder IncludeFreeLayout() // свободная планировка
+        {
+            FreeLayout = "&room9=1";
+            return this;
+        }
+        
+        public FlatQueryBuilder Page(int p) // свободная планировка
+        {
+            CurrentPage = "&p=" + p;
+            return this;
+        }
+        
+        public FlatQueryBuilder SetDealType(DealType type)
+        {
+            switch (type)
+            {
+                case Models.DealType.Sale:
+                    DealType = "&deal_type=sale";
+                    break;
+                
+                case Models.DealType.Rent:
+                    DealType = "&offer_type=rent&type=4";
+                    break;
+                
+                case Models.DealType.RentByDay:
+                    DealType = "&offer_type=rent&type=2";
+                    break;
+            }
+            
+            return this;
+        }
+        
+        public virtual string Build()
+        {
+            Uri = host + cat + DealType + offerType + engineVersion;
+
+            if (FreeLayout != null) Uri += FreeLayout;
+            if (Studios != null) Uri += Studios;
+            if (Rooms != null) Uri += Rooms;
+            if (Region != null) Uri += Region;
+            if (CurrentPage != null) Uri += CurrentPage;
+            if (Sort != null) Uri += Sort;
+
+            return Uri;
+        }
 
     }
 }
