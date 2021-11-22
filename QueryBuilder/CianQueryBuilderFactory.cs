@@ -13,5 +13,10 @@ namespace CianParser.QueryBuilder
         {
             return new PartFlatQueryBuilder();
         }
+        
+        public static SubUrbanQueryBuilder ForSubUrban()
+        {
+            return new SubUrbanQueryBuilder();
+        }
     }
 }

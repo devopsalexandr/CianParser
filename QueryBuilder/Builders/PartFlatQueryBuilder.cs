@@ -63,7 +63,14 @@ namespace CianParser.QueryBuilder.Builders
         
         public override IList<string> BuildByPageRange(int start, int end)
         {
-            throw new System.NotImplementedException();
+            var listOfLinks = new List<string>();
+
+            for (var i = start; i<=end; i++)
+            {
+                Page(i);
+                listOfLinks.Add(Build());
+            }
+            return listOfLinks;
         }
 
         public override string Build()
@@ -74,7 +81,7 @@ namespace CianParser.QueryBuilder.Builders
             if (CurrentPage != null) Uri += CurrentPage;
             if (Sort != null) Uri += Sort;
 
-            Uri += String.Join('&', _partType);
+            Uri += '&' + String.Join('&', _partType);
 
             return Uri;
         }
