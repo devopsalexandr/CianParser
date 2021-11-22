@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
@@ -90,7 +91,19 @@ namespace CianParser.QueryBuilder.Builders
             
             return this;
         }
-        
+
+        public virtual IList<string> BuildByPageRange(int start, int end)
+        {
+            var listOfLinks = new List<string>();
+
+            for (var i = start; i<=end; i++)
+            {
+                Page(i);
+                listOfLinks.Add(Build());
+            }
+            return listOfLinks;
+        }
+
         public virtual string Build()
         {
             Uri = host + cat + DealType + offerType + engineVersion;
