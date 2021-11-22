@@ -102,6 +102,5 @@ namespace CianParser.QueryBuilder.Builders
 
             return Uri;
         }
-
     }
 }
