@@ -3,31 +3,17 @@ using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
 {
-    public class FlatQueryBuilder
+    public class FlatQueryBuilder : BaseQueryBuilder
     {
-        private const string host = "https://www.cian.ru/";
-        
-        private const string cat = "cat.php?";
-
-        private const string engineVersion = "&engine_version=2";
-
-        private string DealType { get; set; } = "deal_type=sale";
 
         private const string offerType = "&offer_type=flat";
 
-        private string Region { get; set; }
-        
-        private string Sort { get; set; }
-        
         private string Rooms { get; set; }
         
         private string Studios { get; set; }
         
         private string FreeLayout { get; set; }
 
-        private string CurrentPage { get; set; } = "&p=1";
-
-        private string Uri { get; set; }
         
         public FlatQueryBuilder SetRegion(Region cityRegion)
         {
@@ -35,10 +21,9 @@ namespace CianParser.QueryBuilder.Builders
             return this;
         }
         
-        public FlatQueryBuilder SortBy(string s)
+        public FlatQueryBuilder SortBy(string sortBy)
         {
-            Sort = "&sort=" + s;
-            
+            Sort = "&sort=" + sortBy;
             return this;
         }
 
@@ -66,7 +51,7 @@ namespace CianParser.QueryBuilder.Builders
             return this;
         }
         
-        public FlatQueryBuilder Page(int p) // свободная планировка
+        public FlatQueryBuilder Page(int p)
         {
             CurrentPage = "&p=" + p;
             return this;
@@ -91,8 +76,8 @@ namespace CianParser.QueryBuilder.Builders
             
             return this;
         }
-
-        public virtual IList<string> BuildByPageRange(int start, int end)
+        
+        public override IList<string> BuildByPageRange(int start, int end)
         {
             var listOfLinks = new List<string>();
 
@@ -104,7 +89,7 @@ namespace CianParser.QueryBuilder.Builders
             return listOfLinks;
         }
 
-        public virtual string Build()
+        public override string Build()
         {
             Uri = host + cat + DealType + offerType + engineVersion;
 

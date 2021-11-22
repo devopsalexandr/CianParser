@@ -8,5 +8,10 @@ namespace CianParser.QueryBuilder
         {
             return new FlatQueryBuilder();
         }
+        
+        public static PartFlatQueryBuilder ForPartOfFlat()
+        {
+            return new PartFlatQueryBuilder();
+        }
     }
 }
