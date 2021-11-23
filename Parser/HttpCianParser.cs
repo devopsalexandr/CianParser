@@ -6,6 +6,7 @@ using AngleSharp;
 using AngleSharp.Js;
 using CianParser.Parser.Exceptions;
 using CianParser.Parser.Models;
+using Jint.Runtime;
 using Newtonsoft.Json;
 
 namespace CianParser.Parser
@@ -68,13 +69,21 @@ namespace CianParser.Parser
 
             try
             {
-                var scriptJs = document.ExecuteScript("JSON.stringify(_cianConfig['frontend-serp'][82].value.results.offers)");
-                return JsonConvert.DeserializeObject<List<Offer>>(scriptJs.ToString());
+                var scriptJs = (string) document.ExecuteScript("JSON.stringify(_cianConfig['frontend-serp'][82].value.results.offers)");
+                
+                var deserializeResult = JsonConvert.DeserializeObject<List<Offer>>(scriptJs);
 
+                return deserializeResult ?? throw new Exception();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new JsNotFoundException("can't find javascript on the page, error message: " + e.Message);
+                if (ex is JavaScriptException)
+                {
+                    throw new JsNotFoundException("can't find javascript on the page, error message: " + ex.Message);
+
+                }
+
+                throw;
             }
 
         }

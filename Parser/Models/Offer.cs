@@ -33,8 +33,8 @@ namespace CianParser.Parser.Models
         public string? TotalArea { get; set; }
         
         public User? User { get; set; }
-        //
-        public IList<IDictionary<string, string>>? Phones { get; set; }
+        
+        public IList<Phone>? Phones { get; set; }
         
         public int? RoomsCount { get; set; }
         
