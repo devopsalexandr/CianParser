@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CianParser.QueryBuilder.Models;
 
@@ -5,7 +6,8 @@ namespace CianParser.QueryBuilder.Builders
 {
     public class FlatQueryBuilder : BaseQueryBuilder<FlatQueryBuilder>
     {
-        private const string OfferType = "&offer_type=flat";
+        // protected OfferType = "&offer_type=flat";
+        protected override string OfferType => "&offer_type=flat";
 
         private string? Rooms { get; set; }
         
@@ -41,19 +43,16 @@ namespace CianParser.QueryBuilder.Builders
             FreeLayout = "&room9=1";
             return this;
         }
-
+        
         public override string Build()
         {
-            Uri = Host + Cat + DealType + OfferType + EngineVersion;
-
+            base.Build();
+            
             if (FreeLayout != null) Uri += FreeLayout;
             if (Studios != null) Uri += Studios;
             if (Rooms != null) Uri += Rooms;
-            if (Region != null) Uri += Region;
-            if (CurrentPage != null) Uri += CurrentPage;
-            if (Sort != null) Uri += Sort;
 
-            return Uri;
+            return Uri ?? throw new Exception("Empty Uri");
         }
     }
 }

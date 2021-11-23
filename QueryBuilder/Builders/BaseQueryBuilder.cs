@@ -11,10 +11,16 @@ namespace CianParser.QueryBuilder.Builders
         protected const string Cat = "cat.php?";
 
         protected const string EngineVersion = "&engine_version=2";
-        
+
+        protected abstract string OfferType { get; }
+
         protected string? Sort { get; set; }
 
         protected string? Region { get; set; }
+        
+        protected string? MaxPrice { get; set; }
+        
+        protected string? MinPrice { get; set; }
 
         protected string DealType { get; set; } = "deal_type=sale";
         
@@ -22,7 +28,17 @@ namespace CianParser.QueryBuilder.Builders
 
         protected string? Uri { get; set; }
         
-        public abstract string Build();
+        public T SetMaxPrice(int price)
+        {
+            MaxPrice = "&maxprice=" + price;
+            return this as T ?? throw new InvalidOperationException();
+        }
+        
+        public T SetMinPrice(int price)
+        {
+            MinPrice = "&minprice=" + price;
+            return this as T ?? throw new InvalidOperationException();
+        }
         
         public T Page(int p)
         {
@@ -73,6 +89,25 @@ namespace CianParser.QueryBuilder.Builders
             }
             
             return listOfLinks;
+        }
+
+        public virtual string Build()
+        {
+            if (OfferType == null)
+                throw new ArgumentNullException(nameof(OfferType));
+            
+            if (DealType == null)
+                throw new ArgumentNullException(nameof(OfferType));
+            
+            Uri = Host + Cat + DealType + OfferType + EngineVersion;
+
+            if (Region != null) Uri += Region;
+            if (CurrentPage != null) Uri += CurrentPage;
+            if (Sort != null) Uri += Sort;
+            if (MaxPrice != null) Uri += MaxPrice;
+            if (MinPrice != null) Uri += MinPrice;
+            
+            return Uri ?? throw new Exception("Empty Uri");
         }
     }
 }

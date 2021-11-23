@@ -6,7 +6,7 @@ namespace CianParser.QueryBuilder.Builders
 {
     public class SuburbanQueryBuilder : BaseQueryBuilder<SuburbanQueryBuilder>
     {
-        private const string OfferType = "&offer_type=suburban";
+        protected override string OfferType => "&offer_type=suburban";
 
         private string _objectType =
             "&object_type%5B0%5D=1&object_type%5B1%5D=2&object_type%5B2%5D=3&object_type%5B3%5D=4";
@@ -46,13 +46,9 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = Host + Cat + DealType + OfferType + EngineVersion + _objectType;
-
-            if (Region != null) Uri += Region;
-            if (CurrentPage != null) Uri += CurrentPage;
-            if (Sort != null) Uri += Sort;
-
-            return Uri;
+            base.Build();
+            
+            return Uri += _objectType;
         }
     }
 }
