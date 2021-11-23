@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CianParser.QueryBuilder.Exceptions;
 using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
@@ -107,7 +108,7 @@ namespace CianParser.QueryBuilder.Builders
             if (MaxPrice != null) Uri += MaxPrice;
             if (MinPrice != null) Uri += MinPrice;
             
-            return Uri ?? throw new Exception("Empty Uri");
+            return Uri ?? throw new UriEmptyException("Empty Uri");
         }
     }
 }

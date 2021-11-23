@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CianParser.QueryBuilder.Exceptions;
 using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
@@ -52,7 +53,7 @@ namespace CianParser.QueryBuilder.Builders
             if (Studios != null) Uri += Studios;
             if (Rooms != null) Uri += Rooms;
 
-            return Uri ?? throw new Exception("Empty Uri");
+            return Uri ?? throw new UriEmptyException();
         }
     }
 }

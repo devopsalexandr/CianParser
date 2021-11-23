@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CianParser.QueryBuilder.Exceptions;
 using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
@@ -26,10 +27,11 @@ namespace CianParser.QueryBuilder.Builders
         public override string Build()
         {
             base.Build();
+            
+            if(Uri == null)
+                throw new UriEmptyException();
 
-            Uri += '&' + string.Join('&', _partType);
-
-            return Uri;
+            return Uri += '&' + string.Join('&', _partType);
         }
     }
 }
