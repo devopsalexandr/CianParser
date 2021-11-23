@@ -6,25 +6,25 @@ namespace CianParser.QueryBuilder.Builders
 {
     public abstract class BaseQueryBuilder<T> where T : class
     {
-        protected const string Host = "https://www.cian.ru/";
+        private const string Host = "https://www.cian.ru/";
         
-        protected const string Cat = "cat.php?";
+        private const string Cat = "cat.php?";
 
-        protected const string EngineVersion = "&engine_version=2";
+        private const string EngineVersion = "&engine_version=2";
 
         protected abstract string OfferType { get; }
 
-        protected string? Sort { get; set; }
+        private string? Sort { get; set; }
 
-        protected string? Region { get; set; }
+        private string? Region { get; set; }
         
-        protected string? MaxPrice { get; set; }
+        private string? MaxPrice { get; set; }
         
-        protected string? MinPrice { get; set; }
+        private string? MinPrice { get; set; }
 
-        protected string DealType { get; set; } = "deal_type=sale";
+        private string DealType { get; set; } = "deal_type=sale";
         
-        protected string CurrentPage { get; set; } = "&p=1";
+        private string CurrentPage { get; set; } = "&p=1";
 
         protected string? Uri { get; set; }
         
