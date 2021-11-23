@@ -2,9 +2,9 @@ namespace CianParser.QueryBuilder.Models
 {
     public class SortBy
     {
-        public const string FromSmallToLarge = "price_object_order";
+        public const string PriceFromSmallToLarge = "price_object_order";
        
-        public const string FromLargeToSmall = "total_price_desc";
+        public const string PriceFromLargeToSmall = "total_price_desc";
        
         public const string PriceSquareFirstChipper = "price_square_order";
        
