@@ -8,10 +8,10 @@ namespace CianParser.Parser.Models
         
         public int? FloorsCount { get; set; }
         
-        public int? buildYear { get; set; }
+        public int? BuildYear { get; set; }
         
-        public IList<IDictionary<string, string>>? deadline { get; set; }
+        public BuildingDeadline? Deadline { get; set; }
         
-        public int? passengerLiftsCount { get; set; }
+        public int? PassengerLiftsCount { get; set; }
     }
 }

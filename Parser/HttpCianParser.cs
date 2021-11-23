@@ -62,6 +62,8 @@ namespace CianParser.Parser
         
         private async Task<List<Offer>> GetOffersOnPageFromHtml(string html)
         {
+            CheckCurrentHtmlDom();
+            
             var document = await _browsingContext.OpenAsync(req => req.Content(html));
 
             try
@@ -70,9 +72,9 @@ namespace CianParser.Parser
                 return JsonConvert.DeserializeObject<List<Offer>>(scriptJs.ToString());
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new JsNotFoundException("can't find javascript on the page");
+                throw new JsNotFoundException("can't find javascript on the page, error message: " + e.Message);
             }
 
         }
@@ -81,6 +83,12 @@ namespace CianParser.Parser
         {
             if (Uri == null)
                 throw new UriNotDefinedException("Use method SetUri() to setup Uri For Parsing");
+        }
+
+        private void CheckCurrentHtmlDom()
+        {
+            if (CurrentHtmlDOM == null)
+                throw new CurrentHtmlDomEmptyException("You need to get Html DOM by GetHtmlDomAsync() method");
         }
     }
 }

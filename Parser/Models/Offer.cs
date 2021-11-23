@@ -33,7 +33,7 @@ namespace CianParser.Parser.Models
         public string? TotalArea { get; set; }
         
         public User? User { get; set; }
-        
+        //
         public IList<IDictionary<string, string>>? Phones { get; set; }
         
         public int? RoomsCount { get; set; }
@@ -45,7 +45,7 @@ namespace CianParser.Parser.Models
         public string? KitchenArea { get; set; }
         
         public Geo? Geo { get; set; }
-
+        
         public Building? Building { get; set; }
     }
 }
