@@ -70,22 +70,19 @@ namespace CianParser.Parser
             try
             {
                 var scriptJs = (string) document.ExecuteScript("JSON.stringify(_cianConfig['frontend-serp'][82].value.results.offers)");
-                
                 var deserializeResult = JsonConvert.DeserializeObject<List<Offer>>(scriptJs);
 
-                return deserializeResult ?? throw new Exception();
+                return deserializeResult ?? throw new NullReferenceException("JavaScript execution returned null");
             }
             catch (Exception ex)
             {
-                if (ex is JavaScriptException)
+                if (ex is JavaScriptException or NullReferenceException)
                 {
                     throw new JsNotFoundException("can't find javascript on the page, error message: " + ex.Message);
-
                 }
 
                 throw;
             }
-
         }
         
         private void ValidateUri()
