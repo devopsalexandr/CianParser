@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using CianParser.QueryBuilder.Exceptions;
-using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
 {
