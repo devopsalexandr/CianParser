@@ -6,7 +6,7 @@ using CianParser.QueryBuilder.Models.SubUrban;
 
 namespace CianParser.QueryBuilder.Builders
 {
-    public class SubUrbanQueryBuilder : BaseQueryBuilder
+    public class SubUrbanQueryBuilder : BaseQueryBuilder<SubUrbanQueryBuilder>
     {
         private const string offerType = "&offer_type=suburban";
 
@@ -44,35 +44,7 @@ namespace CianParser.QueryBuilder.Builders
             return this;
         }
         
-        public SubUrbanQueryBuilder Page(int p)
-        {
-            CurrentPage = "&p=" + p;
-            return this;
-        }
-        
-        public SubUrbanQueryBuilder SortBy(string sortBy)
-        {
-            Sort = "&sort=" + sortBy;
-            return this;
-        }
-        
-        public SubUrbanQueryBuilder SetRegion(Region cityRegion)
-        {
-            Region = "&region=" + (int) cityRegion;
-            return this;
-        }
-        
-        public override IList<string> BuildByPageRange(int start, int end)
-        {
-            var listOfLinks = new List<string>();
-
-            for (var i = start; i<=end; i++)
-            {
-                Page(i);
-                listOfLinks.Add(Build());
-            }
-            return listOfLinks;
-        }
+       
 
         public override string Build()
         {

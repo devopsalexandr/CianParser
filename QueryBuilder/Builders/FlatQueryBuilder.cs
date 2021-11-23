@@ -3,7 +3,7 @@ using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
 {
-    public class FlatQueryBuilder : BaseQueryBuilder
+    public class FlatQueryBuilder : BaseQueryBuilder<FlatQueryBuilder>
     {
 
         private const string offerType = "&offer_type=flat";
@@ -13,19 +13,6 @@ namespace CianParser.QueryBuilder.Builders
         private string Studios { get; set; }
         
         private string FreeLayout { get; set; }
-
-        
-        public FlatQueryBuilder SetRegion(Region cityRegion)
-        {
-            Region = "&region=" + (int) cityRegion;
-            return this;
-        }
-        
-        public FlatQueryBuilder SortBy(string sortBy)
-        {
-            Sort = "&sort=" + sortBy;
-            return this;
-        }
 
         public FlatQueryBuilder SetRooms(params int[] rooms)
         {
@@ -49,44 +36,6 @@ namespace CianParser.QueryBuilder.Builders
         {
             FreeLayout = "&room9=1";
             return this;
-        }
-        
-        public FlatQueryBuilder Page(int p)
-        {
-            CurrentPage = "&p=" + p;
-            return this;
-        }
-        
-        public FlatQueryBuilder SetDealType(DealType type)
-        {
-            switch (type)
-            {
-                case Models.DealType.Sale:
-                    DealType = "&deal_type=sale";
-                    break;
-                
-                case Models.DealType.Rent:
-                    DealType = "&offer_type=rent&type=4";
-                    break;
-                
-                case Models.DealType.RentByDay:
-                    DealType = "&offer_type=rent&type=2";
-                    break;
-            }
-            
-            return this;
-        }
-        
-        public override IList<string> BuildByPageRange(int start, int end)
-        {
-            var listOfLinks = new List<string>();
-
-            for (var i = start; i<=end; i++)
-            {
-                Page(i);
-                listOfLinks.Add(Build());
-            }
-            return listOfLinks;
         }
 
         public override string Build()
