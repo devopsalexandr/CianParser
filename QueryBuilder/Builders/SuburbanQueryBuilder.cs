@@ -1,21 +1,19 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using CianParser.QueryBuilder.Models;
-using CianParser.QueryBuilder.Models.SubUrban;
+using CianParser.QueryBuilder.Exceptions;
+using CianParser.QueryBuilder.Models.Suburban;
 
 namespace CianParser.QueryBuilder.Builders
 {
-    public class SubUrbanQueryBuilder : BaseQueryBuilder<SubUrbanQueryBuilder>
+    public class SuburbanQueryBuilder : BaseQueryBuilder<SuburbanQueryBuilder>
     {
-        private const string offerType = "&offer_type=suburban";
+        private const string OfferType = "&offer_type=suburban";
 
         private string _objectType =
             "&object_type%5B0%5D=1&object_type%5B1%5D=2&object_type%5B2%5D=3&object_type%5B3%5D=4";
 
         private string? OfferFilter { get; set; }
         
-        public SubUrbanQueryBuilder SetObjectsType(params ObjectType[] types)
+        public SuburbanQueryBuilder SetObjectsType(params ObjectType[] types)
         {
             var objectTypes = types.Distinct();
 
@@ -35,10 +33,10 @@ namespace CianParser.QueryBuilder.Builders
                 return this;
             }
 
-            throw new Exception("There are a lot off types");
+            throw new SuburbanObjectTypeException("There are a lot off types");
         }
 
-        public SubUrbanQueryBuilder OfferFrom(OfferFilter filter)
+        public SuburbanQueryBuilder OfferFrom(OfferFilter filter)
         {
             OfferFilter = "&suburban_offer_filter=" + (int) filter;
             return this;
@@ -48,7 +46,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = Host + Cat + DealType + offerType + EngineVersion + _objectType;
+            Uri = Host + Cat + DealType + OfferType + EngineVersion + _objectType;
 
             if (Region != null) Uri += Region;
             if (CurrentPage != null) Uri += CurrentPage;

@@ -5,7 +5,7 @@ namespace CianParser.QueryBuilder.Builders
 {
     public class FlatQueryBuilder : BaseQueryBuilder<FlatQueryBuilder>
     {
-        private const string offerType = "&offer_type=flat";
+        private const string OfferType = "&offer_type=flat";
 
         private string? Rooms { get; set; }
         
@@ -44,7 +44,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = Host + Cat + DealType + offerType + EngineVersion;
+            Uri = Host + Cat + DealType + OfferType + EngineVersion;
 
             if (FreeLayout != null) Uri += FreeLayout;
             if (Studios != null) Uri += Studios;

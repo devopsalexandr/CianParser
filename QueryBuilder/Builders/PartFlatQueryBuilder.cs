@@ -9,7 +9,7 @@ namespace CianParser.QueryBuilder.Builders
     {
         private string[] _partType = { "room8=1", "room0=1" }; // [room8] Доля [room0] Комната
         
-        private const string offerType = "&offer_type=flat";
+        private const string OfferType = "&offer_type=flat";
         
         public PartFlatQueryBuilder OnlyRooms()
         {
@@ -25,7 +25,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = Host + Cat + DealType + offerType + EngineVersion;
+            Uri = Host + Cat + DealType + OfferType + EngineVersion;
 
             if (Region != null) Uri += Region;
             if (CurrentPage != null) Uri += CurrentPage;

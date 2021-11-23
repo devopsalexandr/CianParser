@@ -1,4 +1,4 @@
-namespace CianParser.QueryBuilder.Models.SubUrban
+namespace CianParser.QueryBuilder.Models.Suburban
 {
     public enum ObjectType
     {

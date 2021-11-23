@@ -71,6 +71,7 @@ namespace CianParser.QueryBuilder.Builders
                 Page(i);
                 listOfLinks.Add(Build());
             }
+            
             return listOfLinks;
         }
     }

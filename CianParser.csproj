@@ -7,8 +7,4 @@
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="QueryBuilder\Exceptions" />
-    </ItemGroup>
-
 </Project>
