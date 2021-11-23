@@ -25,7 +25,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = host + cat + DealType + offerType + engineVersion;
+            Uri = Host + Cat + DealType + offerType + EngineVersion;
 
             if (Region != null) Uri += Region;
             if (CurrentPage != null) Uri += CurrentPage;

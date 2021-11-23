@@ -13,7 +13,7 @@ namespace CianParser.QueryBuilder.Builders
         private string _objectType =
             "&object_type%5B0%5D=1&object_type%5B1%5D=2&object_type%5B2%5D=3&object_type%5B3%5D=4";
 
-        private string OfferFilter { get; set; }
+        private string? OfferFilter { get; set; }
         
         public SubUrbanQueryBuilder SetObjectsType(params ObjectType[] types)
         {
@@ -48,7 +48,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = host + cat + DealType + offerType + engineVersion + _objectType;
+            Uri = Host + Cat + DealType + offerType + EngineVersion + _objectType;
 
             if (Region != null) Uri += Region;
             if (CurrentPage != null) Uri += CurrentPage;

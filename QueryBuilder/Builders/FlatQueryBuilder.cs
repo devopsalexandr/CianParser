@@ -5,24 +5,28 @@ namespace CianParser.QueryBuilder.Builders
 {
     public class FlatQueryBuilder : BaseQueryBuilder<FlatQueryBuilder>
     {
-
         private const string offerType = "&offer_type=flat";
 
-        private string Rooms { get; set; }
+        private string? Rooms { get; set; }
         
-        private string Studios { get; set; }
+        private string? Studios { get; set; }
         
-        private string FreeLayout { get; set; }
+        private string? FreeLayout { get; set; }
 
         public FlatQueryBuilder SetRooms(params int[] rooms)
         {
+            var tempRooms = "";
+            
             foreach (var room in rooms)
             {
                 if (room > 0 && room < 6)
                 {
-                    Rooms = $"&room{room}=1";
+                    tempRooms += $"&room{room}=1";
                 }
             }
+
+            Rooms = tempRooms;
+            
             return this;
         }
         
@@ -40,7 +44,7 @@ namespace CianParser.QueryBuilder.Builders
 
         public override string Build()
         {
-            Uri = host + cat + DealType + offerType + engineVersion;
+            Uri = Host + Cat + DealType + offerType + EngineVersion;
 
             if (FreeLayout != null) Uri += FreeLayout;
             if (Studios != null) Uri += Studios;

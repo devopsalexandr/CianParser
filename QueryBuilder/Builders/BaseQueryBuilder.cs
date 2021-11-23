@@ -1,47 +1,48 @@
+using System;
 using System.Collections.Generic;
 using CianParser.QueryBuilder.Models;
 
 namespace CianParser.QueryBuilder.Builders
 {
-    public abstract class BaseQueryBuilder<T> : IQueryBuilder where T : IQueryBuilder
+    public abstract class BaseQueryBuilder<T> where T : class
     {
-        protected const string host = "https://www.cian.ru/";
+        protected const string Host = "https://www.cian.ru/";
         
-        protected const string cat = "cat.php?";
+        protected const string Cat = "cat.php?";
 
-        protected const string engineVersion = "&engine_version=2";
+        protected const string EngineVersion = "&engine_version=2";
         
-        protected string Sort { get; set; }
+        protected string? Sort { get; set; }
 
-        protected string Region { get; set; }
+        protected string? Region { get; set; }
 
         protected string DealType { get; set; } = "deal_type=sale";
         
         protected string CurrentPage { get; set; } = "&p=1";
 
-        protected string Uri { get; set; }
+        protected string? Uri { get; set; }
         
         public abstract string Build();
         
-        public T? Page(int p)
+        public T Page(int p)
         {
             CurrentPage = "&p=" + p;
-            return this as T;
+            return this as T ?? throw new InvalidOperationException();
         }
         
-        public T? SortBy(string sortBy)
+        public T SortBy(string sortBy)
         {
             Sort = "&sort=" + sortBy;
-            return this as T;
+            return this as T ?? throw new InvalidOperationException();
         }
         
-        public T? SetRegion(Region cityRegion)
+        public T SetRegion(Region cityRegion)
         {
             Region = "&region=" + (int) cityRegion;
-            return this as T;
+            return this as T ?? throw new InvalidOperationException();
         }
         
-        public T? SetDealType(DealType type)
+        public T SetDealType(DealType type)
         {
             switch (type)
             {
@@ -58,7 +59,7 @@ namespace CianParser.QueryBuilder.Builders
                     break;
             }
             
-            return this as T;
+            return this as T ?? throw new InvalidOperationException();
         }
         
         public virtual IList<string> BuildByPageRange(int start, int end)
