@@ -24,7 +24,7 @@ https://www.cian.ru/cat.php?&deal_type=sale&offer_type=flat&engine_version=2&reg
 
 Возможность генерировать множество Uri исходя из заданного диапазона начальной и конечной страницы.
 ```c#
-string queryColleciton = CianQueryBuilderFactory.ForFlat()
+IList<string> queryCollection = CianQueryBuilderFactory.ForFlat()
     .SetDealType(DealType.Rent)
     .SetRegion(Region.Spb)
     .SetRooms(2, 3)
@@ -32,11 +32,11 @@ string queryColleciton = CianQueryBuilderFactory.ForFlat()
 ```
 Результат
 ```
-https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&region=1&p=1&sort=creation_date_desc&object_type%5B0%5D=1&object_type%5B1%5D=4&object_type%5B2%5D=3
-https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&region=1&p=2&sort=creation_date_desc&object_type%5B0%5D=1&object_type%5B1%5D=4&object_type%5B2%5D=3
-https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&region=1&p=3&sort=creation_date_desc&object_type%5B0%5D=1&object_type%5B1%5D=4&object_type%5B2%5D=3
-https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&region=1&p=4&sort=creation_date_desc&object_type%5B0%5D=1&object_type%5B1%5D=4&object_type%5B2%5D=3
-https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&region=1&p=5&sort=creation_date_desc&object_type%5B0%5D=1&object_type%5B1%5D=4&object_type%5B2%5D=3
+https://www.cian.ru/cat.php?&offer_type=rent&type=4&offer_type=flat&engine_version=2&region=2&p=1&room2=1&room3=1
+https://www.cian.ru/cat.php?&offer_type=rent&type=4&offer_type=flat&engine_version=2&region=2&p=2&room2=1&room3=1
+https://www.cian.ru/cat.php?&offer_type=rent&type=4&offer_type=flat&engine_version=2&region=2&p=3&room2=1&room3=1
+https://www.cian.ru/cat.php?&offer_type=rent&type=4&offer_type=flat&engine_version=2&region=2&p=4&room2=1&room3=1
+https://www.cian.ru/cat.php?&offer_type=rent&type=4&offer_type=flat&engine_version=2&region=2&p=5&room2=1&room3=1
 ```
 
 ## How to use HttpCianParser
@@ -46,8 +46,27 @@ https://www.cian.ru/cat.php?deal_type=sale&offer_type=suburban&engine_version=2&
 var cianParser = new HttpCianParser(new HttpClient());
 
 var offersOnPage = await cianParser.SetUri(queryFlat).GetOffersOnPage();
+
+foreach (var offer in offersOnPage)
+{
+    Console.WriteLine($"Id объекта: {offer.Id}");
+    Console.WriteLine($"Заголовок: {offer.Title}");
+    Console.WriteLine($"Этаж: {offer.FloorNumber}");
+    Console.WriteLine($"Общая площадь: {offer.TotalArea}");
+}
 ```
+Результат
+```
+Id объекта: 2642636xx
+Заголовок: Студия с Московской пропиской!
+Этаж: 3
+Общая площадь: 26.0
+....
+```
+## Contacts
+
+Если вам нужна расширенная версия, можете связаться со мной devalexandr@yandex.ru
 
 ## License
 
-Данная библиотека с открытым исходным кодом, распространяемое по лицензии [MIT](https://opensource.org/licenses/MIT).
+Данная библиотека с открытым исходным кодом, распространяемая по лицензии [MIT](https://opensource.org/licenses/MIT).
